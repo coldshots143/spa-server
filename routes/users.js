@@ -7,7 +7,7 @@ var mongoose = require('.././models/model');
 
 
 users_r.get('/users',function(req, res){
-             res.set('x-powered-by','Spabulous');
+         
                 mongoose.model('spa_users').find(function(err, data)
                 {
                     if(err){
@@ -18,7 +18,7 @@ users_r.get('/users',function(req, res){
                 })
         })
         .get('/users/:id',function(req, res){
-            res.set('x-powered-by','Spabulous');
+        
             mongoose.model('spa_users').findOne(mongoose.Types.ObjectId(req.params.id))
                            .exec(function(err,data){
                             if(err){
@@ -29,7 +29,7 @@ users_r.get('/users',function(req, res){
                            });
          })
         .post('/users',function(req, res){
-            res.set('x-powered-by','Spabulous');
+        
              newUser = mongoose.model('spa_users');
              let nUser =  new newUser(req.body)
              .save(function(err)
@@ -52,11 +52,11 @@ users_r.get('/users',function(req, res){
             })
         })
         .put('/users',function(req, res){
-            res.set('x-powered-by','Spabulous');
+        
             console.log('put');
         })
         .delete('/users/:id',function(req,res){
-            res.set('x-powered-by','Spabulous');
+        
             mongoose.model('spa_users').find({_id:mongoose.Types.ObjectId(req.params.id)})
             .remove(function(err,data){
                 if(err){console.log(err.errors)};
