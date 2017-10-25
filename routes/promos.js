@@ -2,13 +2,13 @@
    Services Routes
 */
 var express = require('express');
-var services =  express.Router();
+var promos =  express.Router();
 var mongoose = require('.././models/model');
 
 
-services.get('/services',function(req, res){
+promos.get('/promos',function(req, res){
              
-                mongoose.model('spa_services').find(function(err, data)
+                mongoose.model('spa_promos').find(function(err, data)
                 {
                     if(err){
                         console.log(err);
@@ -17,9 +17,9 @@ services.get('/services',function(req, res){
                     }
                 })
         })
-        .get('/services/:id',function(req, res){
+        .get('/promos/:id',function(req, res){
             
-            mongoose.model('spa_services').findOne(mongoose.Types.ObjectId(req.params.id))
+            mongoose.model('spa_promos').findOne(mongoose.Types.ObjectId(req.params.id))
                            .exec(function(err,data){
                             if(err){
                                     console.log(err);
@@ -28,16 +28,16 @@ services.get('/services',function(req, res){
                                 }
                            });
          })
-        .post('/services',function(req, res){
+        .post('/promos',function(req, res){
             
-             newUser = mongoose.model('spa_services');
+             newUser = mongoose.model('spa_promos');
              let nUser =  new newUser(req.body)
              .save(function(err)
              {
                if(err)
                {    
                    errors = [];
-                    list = ['_name','_class','_desc','_price','_duration'];
+                    list = ['_amount','_price','_duration'];
                     // console.log(err.errors[0]);
                     for (var i = 0; i < list.length; i++) {
                         if(err.errors[list[i]])
@@ -52,13 +52,13 @@ services.get('/services',function(req, res){
                }
             })
         })
-        .put('/services',function(req, res){
+        .put('/promos',function(req, res){
             
             console.log('put');
         })
-        .delete('/services/:id',function(req,res){
+        .delete('/promos/:id',function(req,res){
             
-            mongoose.model('spa_services').find({_id:mongoose.Types.ObjectId(req.params.id)})
+            mongoose.model('spa_promos').find({_id:mongoose.Types.ObjectId(req.params.id)})
             .remove(function(err,data){
                 if(err){console.log(err.errors)};
                 res.json(data);
@@ -67,4 +67,4 @@ services.get('/services',function(req, res){
 
 
 
-module.exports = services;
+module.exports = promos;

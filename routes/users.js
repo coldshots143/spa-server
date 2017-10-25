@@ -13,7 +13,7 @@ users_r.get('/users',function(req, res){
                     if(err){
                         console.log(err);
                     }else{
-                        res.jsonp(data);
+                        res.json(data);
                     }
                 })
         })
@@ -24,7 +24,7 @@ users_r.get('/users',function(req, res){
                             if(err){
                                     console.log(err);
                                 }else{
-                                    res.jsonp(data);
+                                    res.json(data);
                                 }
                            });
          })
@@ -60,7 +60,7 @@ users_r.get('/users',function(req, res){
             mongoose.model('spa_users').find({_id:mongoose.Types.ObjectId(req.params.id)})
             .remove(function(err,data){
                 if(err){console.log(err.errors)};
-                res.jsonp(data);
+                res.json(data);
             }).exec();
         })
 
