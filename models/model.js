@@ -24,7 +24,7 @@ mongoose.model("spa_users",
 */
 mongoose.model("spa_rooms",
                 mongoose.Schema({
-                        room_name:{type:String,required:false,unique:true},
+                        room_name:{type:String,required:false,unique:true,dropDups:true},
                         })
                 );
 /*
@@ -32,7 +32,7 @@ mongoose.model("spa_rooms",
 */
 mongoose.model('spa_services',
                 mongoose.Schema({
-                    _name:{type:String,required:true,unique:true},
+                    _name:{type:String,required:true,unique:true,dropDups:true},
                     _class:{type:String,required:true},
                     _desc:{type:String,required:true},
                     _price:{type:Number,required:true},//in decimal
@@ -43,7 +43,7 @@ mongoose.model('spa_services',
 
 mongoose.model('spa_promos',
                 mongoose.Schema({
-                _amount:{type:Number,required:true},
+                _amount:{type:Number,required:true,dropDups:true},
                 _code:{type:String,required:true},
                 _duration:{type:Date,default:Date.now}
                 })
@@ -51,7 +51,7 @@ mongoose.model('spa_promos',
 
 mongoose.model('spa_reservations',
                 mongoose.Schema({
-                customer_id:{type:mongoose.Schema.Types.ObjectId,ref:'spa_users',required:true},
+                customer_id:{type:mongoose.Schema.Types.ObjectId,ref:'spa_users',required:true,dropDups:true},
                 room_id:{type:mongoose.Schema.Types.ObjectId,ref:'spa_rooms',required:true},
                 service_id:{type:mongoose.Schema.Types.ObjectId,ref:'spa_services',required:true},
                 created_by:{type:mongoose.Schema.Types.ObjectId,ref:'spa_users',required:true},
