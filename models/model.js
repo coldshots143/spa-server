@@ -24,7 +24,7 @@ mongoose.model("spa_users",
 */
 mongoose.model("spa_rooms",
                 mongoose.Schema({
-                        room_name:{type:String,required:false},
+                        room_name:{type:String,required:false,unique:true},
                         })
                 );
 /*
@@ -33,9 +33,11 @@ mongoose.model("spa_rooms",
 mongoose.model('spa_services',
                 mongoose.Schema({
                     _name:{type:String,required:true},
+                    _class:{type:String,required:true},
                     _description:{type:String,required:true},
-                    _price:{type:Number,required:true},
+                    _price:{type:Number,required:true},//in decimal
                     _duration:{type:Number,required:true},//in minutes
+                    _created:{type:Date,default:Date.now}
                 })
 );
 

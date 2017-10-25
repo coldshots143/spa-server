@@ -11,18 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
 app.use('/',require('./routes/users'));
-
-// app.post('/users',function(req,res)
-// {
-//     console.log(req.body);
-//     res.set('x-powered-by','Spabulous');
-//     res.json(req.body);
-// });
-
-app.get('/',function( req, res)
-{
-    console.log("hello world!");
-});
+app.use('/',require('./routes/services'));
 
 app.listen(8800);
 

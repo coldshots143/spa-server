@@ -2,13 +2,13 @@
     Users Routes
 */
 var express = require('express');
-var users_r =  express.Router();
+var services =  express.Router();
 var mongoose = require('.././models/model');
 
 
-users_r.get('/users',function(req, res){
+services.get('/services',function(req, res){
              res.set('x-powered-by','Spabulous');
-                mongoose.model('spa_users').find(function(err, data)
+                mongoose.model('spa_services').find(function(err, data)
                 {
                     if(err){
                         console.log(err);
@@ -17,9 +17,9 @@ users_r.get('/users',function(req, res){
                     }
                 })
         })
-        .get('/users/:id',function(req, res){
+        .get('/services/:id',function(req, res){
             res.set('x-powered-by','Spabulous');
-            mongoose.model('spa_users').findOne(mongoose.Types.ObjectId(req.params.id))
+            mongoose.model('spa_services').findOne(mongoose.Types.ObjectId(req.params.id))
                            .exec(function(err,data){
                             if(err){
                                     console.log(err);
@@ -28,16 +28,16 @@ users_r.get('/users',function(req, res){
                                 }
                            });
          })
-        .post('/users',function(req, res){
+        .post('/services',function(req, res){
             res.set('x-powered-by','Spabulous');
-             newUser = mongoose.model('spa_users');
+             newUser = mongoose.model('spa_services');
              let nUser =  new newUser(req.body)
              .save(function(err)
              {
                if(err)
                {    
                    errors = [];
-                    list = ['_username','_password','_fname','_lname','_email','_status','_type','_contact'];
+                    list = ['_name','_class','_desc','_price','_duration'];
                     for (var i = 0; i < list.length; i++) {
                         if(err.errors[list[i]])
                         {
@@ -47,17 +47,17 @@ users_r.get('/users',function(req, res){
                     }
                     res.json(errors);
                }else{
-                   res.json({msg:'Account Successfully Created!'});
+                   alert({msg:'New Service Successfully Added!'});
                }
             })
         })
-        .put('/users',function(req, res){
+        .put('/services',function(req, res){
             res.set('x-powered-by','Spabulous');
             console.log('put');
         })
-        .delete('/users/:id',function(req,res){
+        .delete('/services/:id',function(req,res){
             res.set('x-powered-by','Spabulous');
-            mongoose.model('spa_users').find({_id:mongoose.Types.ObjectId(req.params.id)})
+            mongoose.model('spa_services').find({_id:mongoose.Types.ObjectId(req.params.id)})
             .remove(function(err,data){
                 if(err){console.log(err.errors)};
                 res.jsonp(data);
@@ -66,4 +66,4 @@ users_r.get('/users',function(req, res){
 
 
 
-module.exports = users_r;
+module.exports = services;
