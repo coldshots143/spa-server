@@ -1,5 +1,5 @@
 /*
-   Services Routes
+   Promos Routes
 */
 var express = require('express');
 var promos =  express.Router();

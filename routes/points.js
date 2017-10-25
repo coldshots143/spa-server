@@ -1,5 +1,5 @@
 /*
-   Services Routes
+   Points Routes
 */
 var express = require('express');
 var points =  express.Router();
