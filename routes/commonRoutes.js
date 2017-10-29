@@ -7,7 +7,8 @@ var mongoose = require('.././models/model');
 
 
 commonRoutes.get('/:link',function(req, res){
-                mongoose.model('spa_'+req.params.link).find(function(err, data)
+        if(linkChecker(req.params.link))
+           {     mongoose.model('spa_'+req.params.link).find(function(err, data)
                 {
                     if(err){
                         console.log(err);
@@ -15,54 +16,74 @@ commonRoutes.get('/:link',function(req, res){
                         res.json(data);
                     }
                 })
+            }else{
+                res.status(404);
+                res.send('404 Page Not Found');
+                
+            }
         })
         .get('/:link/:id',function(req, res){
-        
-            mongoose.model('spa_'+req.params.link).findOne(mongoose.Types.ObjectId(req.params.id))
-                           .exec(function(err,data){
-                            if(err){
-                                    console.log(err);
-                                }else{
-                                    res.json(data);
-                                }
-                           });
+            if(linkChecker(req.params.link))
+            {
+                mongoose.model('spa_'+req.params.link).findOne(mongoose.Types.ObjectId(req.params.id))
+                            .exec(function(err,data){
+                                if(err){
+                                        console.log(err);
+                                    }else{
+                                        res.json(data);
+                                    }
+                            });
+            }else{
+                res.status(404);
+                res.send('404 Page Not Found');
+            }
          })
         .post('/:link',function(req, res){
-        
-             newUser = mongoose.model('spa_'+req.params.link);
-             let nUser =  new newUser(req.body)
-             .save(function(err)
-             {
-               if(err)
-               {    
-                   errors = [];
-                    list = ['_username','_password','_fname','_lname','_email','_status','_type','_contact'];
-                    for (var i = 0; i < list.length; i++) {
-                        if(err.errors[list[i]])
-                        {
-                            f = (list[i].replace('_','').charAt(0).toUpperCase() + list[i].replace('_','').substring(1));
-                            errors.push({field:f,msg:err.errors[list[i]]['message'].replace(list[i],f)});
-                        }
-                    }
-                    res.json(errors);
-               }else{
-                   res.json({msg:'Account Successfully Created!'});
-               }
-            })
+            if(linkChecker(req.params.link))
+            {
+                newUser = mongoose.model('spa_'+req.params.link);
+                let nUser =  new newUser(req.body)
+                .save(function(err)
+                {
+                if(err)
+                {    1
+                        res.json(err.errors);
+                }else{
+                    res.json({msg:'Success!!!'});
+                }
+                })
+            }else{
+                res.status(404);
+                res.send('404 Page Not Found');
+            }
         })
         .put('/:link',function(req, res){
-        
-            console.log('put');
+            if(linkChecker(req.params.link))
+            {
+                 console.log('put');
+            }else{
+                res.status(404);
+                res.send('404 Page Not Found');
+            }
         })
         .delete('/:link/:id',function(req,res){
-        
-            mongoose.model('spa_'+req.params.link).find({_id:mongoose.Types.ObjectId(req.params.id)})
-            .remove(function(err,data){
-                if(err){console.log(err.errors)};
-                res.json(data);
-            }).exec();
-        })
+            if(linkChecker(req.params.link))
+            {
+                mongoose.model('spa_'+req.params.link).find({_id:mongoose.Types.ObjectId(req.params.id)})
+                .remove(function(err,data){
+                    if(err){console.log(err.errors)};
+                    res.json(data);
+                }).exec();
+            }else{
+                res.status(404);
+                res.send('404 Page Not Found');
+            }
+        });
 
+linkChecker = function(l){
+    list = ['users','rooms','services','promos','reservations','points'];
+    return list.includes(l);
+}
 
 
 module.exports = commonRoutes;
