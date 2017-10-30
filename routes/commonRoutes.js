@@ -1,6 +1,7 @@
 /*
-    Users Routes
+    Common Routes
 */
+
 var express = require('express');
 var commonRoutes =  express.Router();
 var mongoose = require('.././models/model');
