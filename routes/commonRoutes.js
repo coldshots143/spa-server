@@ -32,7 +32,8 @@ commonRoutes.use('/:link',function(req, res, next)
                 return res.status(403).send({success:false,message:'No Token Provided!.'});
             }
 });
-commonRoutes.get('/:link',function(req, res){
+commonRoutes.get('/:link',function(req, res)
+            {
                mongoose.model('spa_'+req.params.link)
                        .find(function(err, data)
                         {
