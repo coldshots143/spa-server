@@ -1,6 +1,6 @@
 
 module.exports = {
-        'secret':require('crypto').createHmac('sha256','!qAz@wSx#eDc').digest('hex'),
+        'secret':'!qAz@wSx#eDc',
         'database': 'mongodb://localhost/spa'
     
     };
