@@ -1,6 +1,6 @@
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/spa', { useMongoClient: true });
+mongoose.connect(require('.././config/config').database,{useMongoClient: true });
 mongoose.Promise = global.Promise;
 
 /*

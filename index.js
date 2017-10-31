@@ -1,5 +1,6 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+var express     = require('express');
+var bodyParser  = require('body-parser');
+var morgan      = require('morgan');
 // var userType = ["admin","manager","cashier","member","therapist","walk_in"];
 
 var app = express();
@@ -10,6 +11,7 @@ var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 
+app.use(morgan('dev'));
 app.use('/',require('./routes/commonRoutes'));
 
 
